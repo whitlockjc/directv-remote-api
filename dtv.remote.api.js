@@ -1,6 +1,6 @@
-//     dtv.remote.api.js 0.0.1
+// dtv.remote.api.js 0.0.1
 //
-//     Copyright 2011 Nodeable.com
+//     Copyright 2011 Jeremy Whitlock
 //
 //     Licensed under the Apache License, Version 2.0 (the "License");
 //     you may not use this file except in compliance with the License.
