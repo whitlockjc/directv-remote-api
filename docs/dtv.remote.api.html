@@ -1,0 +1,347 @@
+<!DOCTYPE html>  <html> <head>   <title>dtv.remote.api.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               dtv.remote.api.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <pre><code>dtv.remote.api.js 0.0.1
+
+Copyright 2011 Nodeable.com
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>dtv.remote.api.js is a client for the <a href="http://www.directv.com" title="DirecTV Homepage">DirecTV</a>
+remote control API.  The purpose of this module is to provide full access
+all available HTTP API endpoints known.  Since DirecTV does not provide any
+official/public documentation, this effort was made possible by two documents
+available online:</p>
+
+<ul>
+<li><a href="http://www.sbcatest.com/TechUpdates/DTV-MD-0359-DIRECTV%20SHEF%20Public%20Beta%20Command%20Set-V1.0.pdf">DirecTV SHEF Command Set Public Beta</a> <a name="dtv_shef_pdf"/></li>
+<li><a href="http://www.sbcatest.com/DTV-MD-0058-DIRECTVSet-topInformationforInstallers-V2.2.pdf">DirecTV Set-Top-Box Information for the Installer</a> <a name="dtv_installer_pdf"/></li>
+</ul>             </td>             <td class="code">               <div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h2>Initialization</h2>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>Establish the root object, <code>window</code> in the browser, or <code>global</code> on the server.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">root</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <p>Save the previous value of the <code>DirecTV</code> variable.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">previousDirecTV</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">DirecTV</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>The top-level namespace. All public DirecTV classes and modules will
+be attached to this.</p>
+
+<p><strong>Note:</strong> This needs to be exported for <a href="http://www.commonjs.org/" title="CommonJS Homepage">CommonJS</a>
+          and <a href="http://nodejs.org" title="Node.js Homepage">Node.js</a>.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">DirecTV</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">DirecTV</span> <span class="o">=</span> <span class="p">{};</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p><a href="http://documentcloud.github.com/underscore/" title="Underscore.js Homepage">Underscore</a> owns the <code>_</code> variable.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">_</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <p><a href="http://jquery.com/" title="jQuery Homepage">jQuery</a> owns the <code>$</code> variable.</p>
+
+<p><strong>Note:</strong> This needs to be handled on the server-side via a special object.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">$</span> <span class="o">=</span> <span class="nx">root</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>Current version number.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">DirecTV</span><span class="p">.</span><span class="nx">VERSION</span> <span class="o">=</span> <span class="s1">&#39;0.0.1&#39;</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>Run DirecTV in <em>noConflict</em> mode, returning the previous value of
+DirecTV.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">DirecTV</span><span class="p">.</span><span class="nx">noConflict</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">root</span><span class="p">.</span><span class="nx">DirecTV</span> <span class="o">=</span> <span class="nx">previousDirecTV</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>This is <strong>the</strong> DirecTV remote object.  The options object <em>must</em> have an
+<code>ipAddress</code> attribute that is a valid IP address for a DirecTV
+set-top-box.  An <code>Error</code> will be thrown if the <code>ipAddress</code> attribute is
+not passed.  No validation of the <code>ipAddress</code> occurs at this stage nor is
+validation automatic.  If you wish to validate the <code>ipAddress</code>, use the
+<a href="#validate">DirecTV.Remote.validate()</a> method.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">DirecTV</span><span class="p">.</span><span class="nx">Remote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">options</span> <span class="o">||</span> <span class="p">(</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{});</span> <span class="c1">// Default options to an empty object if not supplied</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>Require that the <code>ipAddress</code> option be passed <em>(unvalidated)</em>.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">ipAddress</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;options.ipAddress is not optional.&#39;</span><span class="p">);</span>
+        <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p>Create a unique identifier</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="k">this</span><span class="p">.</span><span class="nx">rid</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">uniqueId</span><span class="p">(</span><span class="s1">&#39;dtvr&#39;</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">ipAddress</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">ipAddress</span><span class="p">;</span>
+    <span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>Attach all inheritable methods to the Remote prototype.</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">DirecTV</span><span class="p">.</span><span class="nx">Remote</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-15">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-15">&#182;</a>               </div>               <p><a name="commands"/>
+These commands are based on the documentation listed in the
+<a href="#dtv_installer_pdf">DirecTV Set-Top-Box Information for the Installer</a>
+document.  Since this document was generated in 2008, I am sure this
+list could be out of date but for now I can only add what is
+documented.  This list is here purely for reference.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">Commands</span> <span class="o">:</span> <span class="p">[</span>
+            <span class="s1">&#39;FA81&#39;</span><span class="p">,</span> <span class="c1">// Standby</span>
+            <span class="s1">&#39;FA82&#39;</span><span class="p">,</span> <span class="c1">// Active</span>
+            <span class="s1">&#39;FA83&#39;</span><span class="p">,</span> <span class="c1">// GetPrimaryStatus</span>
+            <span class="s1">&#39;FA84&#39;</span><span class="p">,</span> <span class="c1">// GetCommandVersion</span>
+            <span class="s1">&#39;FA87&#39;</span><span class="p">,</span> <span class="c1">// GetCurrentChannel</span>
+            <span class="s1">&#39;FA90&#39;</span><span class="p">,</span> <span class="c1">// GetSignalQuality</span>
+            <span class="s1">&#39;FA91&#39;</span><span class="p">,</span> <span class="c1">// GetCurrentTime</span>
+            <span class="s1">&#39;FA92&#39;</span><span class="p">,</span> <span class="c1">// GetUserCommand</span>
+            <span class="s1">&#39;FA93&#39;</span><span class="p">,</span> <span class="c1">// EnableUserEntry</span>
+            <span class="s1">&#39;FA94&#39;</span><span class="p">,</span> <span class="c1">// DisableUserEntry</span>
+            <span class="s1">&#39;FA95&#39;</span><span class="p">,</span> <span class="c1">// GetReturnValue</span>
+            <span class="s1">&#39;FA96&#39;</span><span class="p">,</span> <span class="c1">// Reboot</span>
+            <span class="s1">&#39;FAA5&#39;</span><span class="p">,</span> <span class="c1">// SendUserCommand</span>
+            <span class="s1">&#39;FAA6&#39;</span><span class="p">,</span> <span class="c1">// OpenUserChannel</span>
+            <span class="s1">&#39;FA9A&#39;</span><span class="p">,</span> <span class="c1">// GetTuner</span>
+            <span class="s1">&#39;FA8A&#39;</span><span class="p">,</span> <span class="c1">// GetPrimaryStatusMT</span>
+            <span class="s1">&#39;FA8B&#39;</span><span class="p">,</span> <span class="c1">// GetCurrentChannelMT</span>
+            <span class="s1">&#39;FA9D&#39;</span><span class="p">,</span> <span class="c1">// GetSignalQualityMT</span>
+            <span class="s1">&#39;FA9F&#39;</span><span class="p">,</span> <span class="c1">// OpenUserChannelMT</span>
+        <span class="p">],</span></pre></div>             </td>           </tr>                               <tr id="section-16">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-16">&#182;</a>               </div>               <p><a name="holds"/>
+These holds are based on the documentation listed in the
+<a href="#dtv_shef_pdf">DirecTV SHEF Command Set Public Beta</a> document.
+Since this document was generated in 2010, I am sure this list
+could be out of date but fornow I can only add what is documented.
+This list is here purely for reference.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">Holds</span> <span class="o">:</span> <span class="p">[</span>
+            <span class="s1">&#39;keyUp&#39;</span><span class="p">,</span> <span class="c1">// Simulates releasing a key</span>
+            <span class="s1">&#39;keyDown&#39;</span><span class="p">,</span> <span class="c1">// Simulates pressing and holding a key</span>
+            <span class="s1">&#39;keyPress&#39;</span> <span class="c1">// Simulates pressing a key and then releasing a key</span>
+        <span class="p">],</span></pre></div>             </td>           </tr>                               <tr id="section-17">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-17">&#182;</a>               </div>               <p><a name="keys"/>
+These keys are based on the documentation listed in the
+<a href="#dtv_shef_pdf">DirecTV SHEF Command Set Public Beta</a> document.
+Since this document was generated in 2010, I am sure this list could
+be out of date but for now I can only add what is documented.  This
+list is here purely for reference.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">Keys</span> <span class="o">:</span> <span class="p">[</span>
+            <span class="s1">&#39;power&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;poweron&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;poweroff&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;format&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;pause&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;rew&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;replay&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;stop&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;advance&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ffwd&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;record&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;play&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;guide&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;active&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;list&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;exit&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;back&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;menu&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;info&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;up&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;down&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;left&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;right&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;select&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;red&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;green&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;yellow&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;chanup&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;chandown&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;prev&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;2&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;3&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;4&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;5&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;6&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;7&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;8&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;9&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;dash&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;enter&#39;</span>
+        <span class="p">],</span></pre></div>             </td>           </tr>                               <tr id="section-18">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-18">&#182;</a>               </div>               <h2>DirecTV.Remote Methods</h2>
+
+<p>All methods in this section are required to pass in the a <code>callback</code>
+function in the options for each method invocation.  Since we're
+using <strong>jsonp</strong> in the browser, which mandates an asynchronous
+request, the callback is used to handle the request's response.  The
+response object will either be a valid payload from the DirecTV API
+call or an object mirroring the <code>status</code> object in every DirecTV API
+response which contains the following attributes:</p>
+
+<ul>
+<li><strong>code:</strong> The HTTP status code of the request</li>
+<li><strong>commandResult:</strong> The result of the command, UNIX style</li>
+<li><strong>msg:</strong> The human readable message indicating the request status</li>
+<li><strong>query:</strong> The portion of the request after the port in the URL</li>
+</ul>
+
+<p>Every response to every callback will have at least the <code>status</code>
+attribute mentioned above and it will be what you use to check if a
+request was a succes or failure.</p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-19">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-19">&#182;</a>               </div>               <p><a name="validate"/>
+Validate the <code>ipAddress</code> configured with this DirecTV.Remote
+instance.  This is done first by using a regular expression to
+validate that the <code>ipAddress</code> is a valid IPv4 IP address.  If that
+succeeds, we will then try to contact the DirecTV set-top-box.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">validate</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="s1">&#39;/info/getOptions&#39;</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">oldCallback</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="sr">/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">ipAddress</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">options</span><span class="p">.</span><span class="nx">callback</span><span class="p">({</span>
+                    <span class="nx">status</span> <span class="o">:</span> <span class="p">{</span>
+                        <span class="nx">code</span>          <span class="o">:</span> <span class="mi">405</span><span class="p">,</span>
+                        <span class="nx">commandResult</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="nx">msg</span>           <span class="o">:</span> <span class="s1">&#39;Not a valid IP address&#39;</span><span class="p">,</span>
+                        <span class="nx">query</span>         <span class="o">:</span> <span class="nx">path</span>
+                    <span class="p">}</span>
+                <span class="p">});</span>
+            <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-20">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-20">&#182;</a>               </div>               <p>We have to validate the <code>callback</code> option here since we have to
+do some callback juggling so we can deliver customized messages
+based on the result of the request.</p>             </td>             <td class="code">               <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">callback</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">options</span><span class="p">.</span><span class="nx">callback</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;options.callback is not optional and must be a function.&#39;</span><span class="p">);</span>
+            <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-21">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-21">&#182;</a>               </div>               <p>The callback passed in so we can invoke it later with our
+customized response object.</p>             </td>             <td class="code">               <div class="highlight"><pre>            <span class="nx">oldCallback</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">callback</span><span class="p">;</span>
+
+            <span class="nx">options</span><span class="p">.</span><span class="nx">callback</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">,</span> <span class="nx">jqXHR</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">response</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-22">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-22">&#182;</a>               </div>               <p>We got a valid response.</p>             </td>             <td class="code">               <div class="highlight"><pre>                    <span class="nx">response</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="nx">status</span> <span class="o">:</span> <span class="p">{</span>
+                            <span class="nx">code</span>          <span class="o">:</span> <span class="mi">200</span><span class="p">,</span>
+                            <span class="nx">commandResult</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                            <span class="nx">msg</span>           <span class="o">:</span> <span class="s1">&#39;Host is a DirecTV set-top-box&#39;</span><span class="p">,</span>
+                            <span class="nx">query</span>         <span class="o">:</span> <span class="nx">path</span>
+                        <span class="p">}</span>
+                    <span class="p">};</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-23">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-23">&#182;</a>               </div>               <p>We got a valid response but it did not have the expected
+payload.</p>             </td>             <td class="code">               <div class="highlight"><pre>                    <span class="nx">response</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="nx">status</span> <span class="o">:</span> <span class="p">{</span>
+                            <span class="nx">code</span>          <span class="o">:</span> <span class="mi">404</span><span class="p">,</span>
+                            <span class="nx">commandResult</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                            <span class="nx">msg</span>           <span class="o">:</span> <span class="s1">&#39;Host does not appear to be a DirecTV set-top-box&#39;</span><span class="p">,</span>
+                            <span class="nx">query</span>         <span class="o">:</span> <span class="nx">path</span>
+                        <span class="p">}</span>
+                    <span class="p">};</span>
+                <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-24">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-24">&#182;</a>               </div>               <p>Fire the callback with our customized response</p>             </td>             <td class="code">               <div class="highlight"><pre>                <span class="nx">oldCallback</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+            <span class="p">};</span>
+
+            <span class="k">this</span><span class="p">.</span><span class="nx">makeRequest</span><span class="p">({</span>
+                <span class="nx">path</span>    <span class="o">:</span> <span class="nx">path</span><span class="p">,</span>
+                <span class="nx">options</span> <span class="o">:</span> <span class="nx">options</span>
+            <span class="p">});</span>
+        <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-25">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-25">&#182;</a>               </div>               <p>Retrieve the list of DirecTV set-top-box locations the set-top-box
+is aware of.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">getLocations</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">makeRequest</span><span class="p">({</span>
+                <span class="nx">path</span>    <span class="o">:</span> <span class="s1">&#39;/info/getLocations&#39;</span><span class="p">,</span>
+                <span class="nx">options</span> <span class="o">:</span> <span class="nx">options</span>
+            <span class="p">});</span>
+        <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-26">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-26">&#182;</a>               </div>               <p>Retrieve the current software version information for the DirecTV
+set-top-box.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">getVersion</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">makeRequest</span><span class="p">({</span>
+                <span class="nx">path</span>    <span class="o">:</span> <span class="s1">&#39;/info/getVersion&#39;</span><span class="p">,</span>
+                <span class="nx">options</span> <span class="o">:</span> <span class="nx">options</span><span class="p">,</span>
+            <span class="p">});</span>
+        <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-27">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-27">&#182;</a>               </div>               <p>Retrieve the operating mode the DirecTV set-top-box is currently
+operating in.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">getMode</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">makeRequest</span><span class="p">({</span>
+                <span class="nx">path</span>    <span class="o">:</span> <span class="s1">&#39;/info/mode&#39;</span><span class="p">,</span>
+                <span class="nx">options</span> <span class="o">:</span> <span class="nx">options</span>
+            <span class="p">});</span>
+        <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-28">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-28">&#182;</a>               </div>               <p>Send a remote key press request to the DirecTV set-top-box.  The
+<code>key</code> option is required and must be valid.  For available keys see
+the <a href="#keys">available keys</a> portion of the documentaiton.  You can
+also pass in a <code>hold</code> option but it is not required.  For available
+holds, see the <a href="#holds">available holds</a> portion of the
+documentation.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">processKey</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;options.key is not optional.&#39;</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">this</span><span class="p">.</span><span class="nx">makeRequest</span><span class="p">({</span>
+                <span class="nx">path</span>    <span class="o">:</span> <span class="s1">&#39;/remote/processKey&#39;</span><span class="p">,</span>
+                <span class="nx">options</span> <span class="o">:</span> <span class="nx">options</span>
+            <span class="p">});</span>
+        <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-29">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-29">&#182;</a>               </div>               <p>Sends a serial command request to the DirecTV set-top-box.  The
+<code>cmd</code> option is required and must be valid.  For available commands
+see the <a href="#commands">available commands</a> portion of the documentaiton.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">processCommand</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">cmd</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;options.cmd is not optional.&#39;</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">this</span><span class="p">.</span><span class="nx">makeRequest</span><span class="p">({</span>
+                <span class="nx">path</span>    <span class="o">:</span> <span class="s1">&#39;/serial/processCommand&#39;</span><span class="p">,</span>
+                <span class="nx">options</span> <span class="o">:</span> <span class="nx">options</span>
+            <span class="p">});</span>
+        <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-30">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-30">&#182;</a>               </div>               <p>Retrieve the list of available APIs the DirecTV set-top-box supports.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">getOptions</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">makeRequest</span><span class="p">({</span>
+                <span class="nx">path</span>    <span class="o">:</span> <span class="s1">&#39;/info/getOptions&#39;</span><span class="p">,</span>
+                <span class="nx">options</span> <span class="o">:</span> <span class="nx">options</span>
+            <span class="p">});</span>
+        <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-31">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-31">&#182;</a>               </div>               <p>Retrieve the current program information for the channel given.  The
+<code>major</code> option is required and corresponds to the channel you want to
+get programming information for.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">getProgInfo</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">major</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;options.major is not optional.&#39;</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">this</span><span class="p">.</span><span class="nx">makeRequest</span><span class="p">({</span>
+                <span class="nx">path</span>    <span class="o">:</span> <span class="s1">&#39;/tv/getProgInfo&#39;</span><span class="p">,</span>
+                <span class="nx">options</span> <span class="o">:</span> <span class="nx">options</span>
+            <span class="p">});</span>
+        <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-32">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-32">&#182;</a>               </div>               <p>Retrieves the current program information for the currently tuned
+channel.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">getTuned</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">makeRequest</span><span class="p">({</span>
+                <span class="nx">path</span>    <span class="o">:</span> <span class="s1">&#39;/tv/getTuned&#39;</span><span class="p">,</span>
+                <span class="nx">options</span> <span class="o">:</span> <span class="nx">options</span>
+            <span class="p">});</span>
+        <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-33">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-33">&#182;</a>               </div>               <p>Send a request to tune the DirecTV set-top-box to the channel
+specified.  The <code>major</code> option is required and corresponds to the
+channel you wish to tune to.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">tune</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">major</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;options.major is not optional.&#39;</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">this</span><span class="p">.</span><span class="nx">makeRequest</span><span class="p">({</span>
+                <span class="nx">path</span>    <span class="o">:</span> <span class="s1">&#39;/tv/tune&#39;</span><span class="p">,</span>
+                <span class="nx">options</span> <span class="o">:</span> <span class="nx">options</span>
+            <span class="p">});</span>
+        <span class="p">},</span></pre></div>             </td>           </tr>                               <tr id="section-34">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-34">&#182;</a>               </div>               <h2>Helper Methods</h2>
+
+<p>The methods in this section are helper methods.</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">makeRequest</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">requestOptions</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">requestOptions</span> <span class="o">||</span> <span class="p">(</span><span class="nx">requestOptions</span> <span class="o">=</span> <span class="p">{});</span> <span class="c1">// Default options to an empty object if not supplied</span>
+            <span class="nx">requestOptions</span><span class="p">.</span><span class="nx">options</span> <span class="o">||</span> <span class="p">(</span><span class="nx">requestOptions</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{});</span> <span class="c1">// Default options to an empty object if not supplied</span>
+
+            <span class="kd">var</span> <span class="nx">requestUrl</span> <span class="o">=</span> <span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">ipAddress</span> <span class="o">+</span> <span class="s1">&#39;:8080&#39;</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">requestQuery</span> <span class="o">=</span> <span class="nx">requestOptions</span><span class="p">.</span><span class="nx">path</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">requestComplete</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-35">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-35">&#182;</a>               </div>               <p>This is the currently known list of available request parameters
+that can be specified in all DirecTV.Remote methods.</p>             </td>             <td class="code">               <div class="highlight"><pre>            <span class="kd">var</span> <span class="nx">knownRequestParams</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s1">&#39;clientAddr&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;cmd&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;hold&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;key&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;major&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;minor&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;time&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;videoWindow&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;wrapper&#39;</span>
+            <span class="p">];</span>
+            <span class="kd">var</span> <span class="nx">i</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-36">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-36">&#182;</a>               </div>               <p>This should never happen but just in case someone uses makeRequest directly in an invalid way...</p>             </td>             <td class="code">               <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">requestOptions</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">callback</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">requestOptions</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">callback</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;requestOptions.options.callback is not optional and must be a function.&#39;</span><span class="p">);</span>
+            <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-37">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-37">&#182;</a>               </div>               <p>This should never happen but just in case someone uses makeRequest directly in an invalid way...</p>             </td>             <td class="code">               <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">requestOptions</span><span class="p">.</span><span class="nx">path</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;requestOptions.path is not optional.&#39;</span><span class="p">);</span>
+            <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-38">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-38">&#182;</a>               </div>               <p>Create query params based on known request options</p>             </td>             <td class="code">               <div class="highlight"><pre>            <span class="k">if</span> <span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">intersection</span><span class="p">(</span><span class="nx">knownRequestParams</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">requestOptions</span><span class="p">.</span><span class="nx">options</span><span class="p">)).</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">requestQuery</span> <span class="o">+=</span> <span class="s1">&#39;?&#39;</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">knownRequestParams</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">requestParam</span> <span class="o">=</span> <span class="nx">knownRequestParams</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="nx">requestOptions</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">requestParam</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">requestQuery</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">requestQuery</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">!==</span> <span class="s1">&#39;?&#39;</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">requestQuery</span> <span class="o">+=</span> <span class="s1">&#39;&amp;&#39;</span><span class="p">;</span>
+                    <span class="p">}</span>
+
+                    <span class="nx">requestQuery</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">requestParam</span> <span class="o">+</span> <span class="s1">&#39;=&#39;</span> <span class="o">+</span> <span class="nx">requestOptions</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span><span class="nx">requestParam</span><span class="p">]);</span>
+                <span class="p">}</span>
+            <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-39">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-39">&#182;</a>               </div>               <p>Make the call, asynchronously, and fire the callback with the results.</p>             </td>             <td class="code">               <div class="highlight"><pre>            <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+                <span class="nx">cache</span>    <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nx">dataType</span> <span class="o">:</span> <span class="s1">&#39;jsonp&#39;</span><span class="p">,</span>
+                <span class="nx">url</span>      <span class="o">:</span> <span class="nx">requestUrl</span> <span class="o">+</span> <span class="nx">requestQuery</span><span class="p">,</span>
+                <span class="nx">type</span>     <span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+                <span class="nx">success</span>  <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">,</span> <span class="nx">jqXHR</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">requestComplete</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+                    <span class="nx">requestOptions</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">callback</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">});</span></pre></div>             </td>           </tr>                               <tr id="section-40">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-40">&#182;</a>               </div>               <p>jQuery doesn't call the <code>error</code> or <code>complete</code> callbacks for
+<strong>jsonp</strong> requests when things go wrong.  This is our backup for
+such situations.</p>             </td>             <td class="code">               <div class="highlight"><pre>            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">requestComplete</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="nx">status</span> <span class="o">:</span> <span class="p">{</span>
+                            <span class="nx">code</span> <span class="o">:</span> <span class="mi">404</span><span class="p">,</span>
+                            <span class="nx">msg</span>           <span class="o">:</span> <span class="s1">&#39;Invalid request (&#39;</span> <span class="o">+</span> <span class="nx">requestUrl</span> <span class="o">+</span>
+                                <span class="s1">&#39;): The request was either for a non-DirecTV &#39;</span> <span class="o">+</span>
+                                <span class="s1">&#39;set-top-box, was for an invalid endpoint of &#39;</span> <span class="o">+</span>
+                                <span class="s1">&#39;a DirecTV set-top-box or the parameter(s) &#39;</span> <span class="o">+</span>
+                                <span class="s1">&#39;passed to the endpoint were invalid.&#39;</span><span class="p">,</span>
+                            <span class="nx">commandResult</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+                            <span class="nx">query</span> <span class="o">:</span> <span class="nx">requestQuery</span>
+                        <span class="p">}</span>
+                    <span class="p">};</span>
+
+                    <span class="nx">requestOptions</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">callback</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">},</span> <span class="mi">5000</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+<span class="p">}).</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
