@@ -1,25 +1,226 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset='utf-8'>
-
   <title>DirecTV Remote API</title>
+  <link rel="stylesheet" href="website/css/bootstrap.css" type="text/css"/>
+  <style>
+    body {
+      padding-top: 60px;
+    }
+  </style>
 </head>
-
 <body>
+  <!-- GitHub 'Fork Me' Badge -->
   <a href="https://github.com/jcscoobyrs/directv-remote-api">
-    <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+    <img style="position: absolute; top: 0; right: 0; border: 0; z-index: 15000;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
   </a>
 
-  <div id="container">
-    <h1>
-      <a href="https://github.com/jcscoobyrs/directv-remote-api">DirecTV Remote API</a>
-      <span class="small">by <a href="https://github.com/jcscoobyrs">jcscoobyrs</a></span>
-    </h1>
-
-    <p>
-      This site is currently being restructured and redesigned.  Check back in an hour or so.
-    </p>
+  <!-- Navigation Bar -->
+  <div class="topbar" data-scrollspy="scrollspy" data-dropdown="dropdown">
+    <div class="fill">
+      <div class="container">
+        <a class="brand" href="http://jcscoobyrs.github.com/directv-remote-api/">DirecTV Remote API</a>
+        <ul class="nav">
+          <li class="active"><a href="#overview">Overview</a></li>
+          <li><a href="#about">About</a></li>
+          <li class="dropdown">
+            <a href="#javascript" class="dropdown-toggle">JavaScript</a>
+            <ul class="dropdown-menu">
+              <li><a href="#javascript-documentation">Documentation</a></li>
+              <li><a href="#javascript-downloads">Downloads</a></li>
+              <li><a href="#javascript-examples">Examples</a></li>
+            </ul>
+          </li>
+          <li><a href="#resources">Resources</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
+
+  <!-- Main Content -->
+  <div class="container">
+
+    <!-- Overview -->
+    <div class="hero-unit" id="overview">
+      <h1>DirecTV Remote API</h1>
+      <p>
+        Providing consistent APIs for interacting with your <a href="http://www.directv.com">DirecTV</a> <abbr title="set-top-box">STB</abbr>, because someone had to do it.
+      <p>
+    </div>
+
+    <!-- About -->
+    <section id="about">
+      <div class="page-header">
+        <h1>About the Project <small>Reasons behind the project and the project goals</small></h1>
+      </div>
+      <div class="row">
+        <div class="span8">
+          <h3>History</h3>
+          <p>
+            I've often found myself wanting to have a smarter remote control.  Sure, I can go buy some multi-device
+            remote and all but with my smartphone, I already have remotes for most of my media center already.  All
+            that I needed was a remote for my DirecTV <abbr title="set-top-box">STB</abbr>.
+          </p>
+          <p>
+            As most others do, I looked in my respective smartphone app stores and saw nothing compelling.  Being a
+            hacker, like most reading this, I looked into writing my own and that is when I realized something: DirecTV
+            doesn't have an official API nor is there any official documentation on the subject.  So how is everyone
+            else doing it?
+          </p>
+          <p>
+            After some port scanning and <a href="http://www.google.com">Google</a> searching, I found out that I
+            can indeed control my DirecTV <abbr title="set-top-box">STB</abbr> programmatically but most of the
+            code I found on the subject were one-off hacks only solving the needs of the project the code was
+            associated with.  So here I am, hoping to provide you with an API, a consistent/common API, for
+            interacting with the DirecTV <abbr title="set-top-box">STB</abbr> programmatically.
+          </p>
+        </div>
+        <div class="span8">
+          <h3>Goals</h3>
+          <p>
+            The goals for this project are to design a very simple, yet full-featured, API for using every
+            available API provided by DirecTV for interating with your <abbr title="set-top-box">STB</abbr>
+            programmatically and to provide this API across a few languages:
+          </p>
+          <ul>
+            <li>Java</li>
+            <li><a href="#javascript">JavaScript</a></li>
+            <li>Objective-C</li>
+          </ul>
+          <p>
+            <span class="label notice">NOTE</span> The list of proposed/supported languages is not set in stone.
+          </p>
+          <p>
+            The main focus for this project is to provider APIs for languages with a mobile presence which is
+            why you see the proposed langauges above.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- JavaScript-->
+    <section id="javascript">
+      <div class="page-header">
+        <h1>JavaScript</h1>
+      </div>
+      <div class="row">
+        <a name="javascript"></a>
+        <div class="span-one-third">
+          <h3>Resources</h3>
+          <p>
+            To the right you will see information on how to download the JavaScript API, documentation on
+            how to use the JavaScript API and example applications.
+          </p>
+        </div>
+        <div class="span-two-thirds">
+          <h3>Documentation</h3>
+        <a name="javascript-documentation"></a>
+          <p>
+            Documentation for the JavaScript API right now consists of two items:
+          </p>
+          <dl>
+            <dt><a href="js/test/">Online Test Suite</a></dt>
+            <dd>This is a test suite that runs in your browser.</dd>
+            <dt><a href="js/docs/dtv.remote.api.html">Annotated Source Code</a></dt>
+            <dd>This is the actual source code for the JavaScript API presented in annotated form.</dd>
+          </dl>
+          <p>
+            The annotated source will help you not only see what APIs are available but also what options
+            are available, or required, when calling the particular functions or creating the particular
+            objects.  Pretty soon we'll have a API documentation but until then, the annotated source and
+            test suite should show you how to use the API properly.
+          </p>
+          <h3>Downloads <small>(Right-click and use "Save as")</h3>
+        <a name="javascript-downloads"></a>
+          <table class="bordered-table zebra-striped">
+            <thead>
+              <tr>
+                <th>File name</th>
+                <th>Version</th>
+                <th>Size</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="js/dtv.remote.api.js">dtv.remote.api.js</a></td>
+                <td>0.0.1</td>
+                <td>20kb</td>
+                <td>Development version <em>(Uncompressed with comments)</em></td>
+              </tr>
+              <tr>
+                <td><a href="js/dtv.remote.api-min.js">dtv.remote.api-min.js</a></td>
+                <td>0.0.1</td>
+                <td>8kb</td>
+                <td>Production version <em>(Minified)</em></td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            The JavaScript API has two hard dependencies:
+          </p>
+          <ul>
+            <li><a href="http://jquery.com/">jQuery</a> 1.7 or greater</li>
+            <li><a href="http://documentcloud.github.com/underscore/">Underscore.js</a> 1.2.2 or greater</li>
+          </ul>
+          <h3>Examples</h3>
+          <a name="javascript-examples"></a>
+          <p>
+            The <a href="js/examples">example application</a> is a work in progress that will allow you to
+            connect to a DirecTV <abbr title="set-top-box">STB</abbr> on your local network and interact with
+            it: View information about the currently tuned channel, change channels, see what's currently on
+            other channels and many more.  You can also use the <a href="https://github.com/jcscoobyrs/js-directv-remote-api/blob/master/test/tests.js">online test suite sources</a>
+            as a low-level, code-based example on how to use the full JavaScript API.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources -->
+    <section id="resources">
+      <div class="page-header">
+        <h1>Resources <small>Useful reading</small></h1>
+      </div>
+      <div class="row">
+        <div class="span16">
+          <p>
+            Below you will find links, with explanation, to some very useful resources that either helped in
+            the creation of these APIs, are using these APIs or are tools/libraries/apis being used by this
+            project:
+          </p>
+          <h3>Tools used</h3>
+          <dl>
+            <dt><a href="http://twitter.github.com/bootstrap/">Bootstrap</a></dt>
+            <dd>Bootstrap is a "toolkit from Twitter designed to kickstart development of webapps and sites" and is used for the UI of this site and the <a href="#javascript">JavaScript API</a> example application.</dd>
+            <dt><a href="http://jashkenas.github.com/docco/">Docco</a></dt>
+            <dd>Docco is the tool used to generated the annotated source for the <a href="#javascript">JavaScript API</a>.</dd>
+            <dt><a href="http://jquery.com/">jQuery</a></dt>
+            <dd>jQuery is the "Write less, do more, JavaScript library" that provides the AJAX functionality for the <a href="#javascript">JavaScript API</a>.</dd>
+            <dt><a href="http://docs.jquery.com/QUnit">QUnit</a></dt>
+            <dd>QUnit is a JavaScript unit test library written by the jQuery guys and is used by our <a href="#javascript">JavaScript API</a> to run its in-browser test suite.</dd>
+            <dt><a href="http://documentcloud.github.com/underscore/">Underscore</a></dt>
+            <dd>Underscore is "a utility-belt library for JavaScript" used by the <a href="#javascript">JavaScript API</a>.</dd>
+          </dl>
+          <h3>Reading Materials</h3>
+          <dl>
+            <dt><a href="http://www.sbcatest.com/TechUpdates/DTV-MD-0359-DIRECTV%20SHEF%20Public%20Beta%20Command%20Set-V1.0.pdf">DirecTV SHEF Command Set Public Beta</a></dt>
+            <dd>This PDF documents the available HTTP-based API for interacting with your DirecTV <abbr title="set-top-box">STB</abbr>.</dd>
+            <dt><a href="http://www.sbcatest.com/DTV-MD-0058-DIRECTVSet-topInformationforInstallers-V2.2.pdf">DirecTV Set-Top-Box Information for the Installer</a></dt>
+            <dd>This PDF documents the available serial commands available to be invoked via the HTTP API documented above.</dd>
+          </dl>
+          <p>
+            <span class="label notice">NOTE</span> The <strong>DirecTV SHEF Command Set Public Beta</strong> and <strong>DirecTV Set-Top-Box Information for the Installer</strong>
+            documents are out of date.  That being said, with these documents being the closest thing to real DirecTV API documentation they were still essential in
+            helping create these APIs.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Scripts -->
+  <script type="text/javascript" src="website/js/jquery-1.7.js"></script>
+  <script type="text/javascript" src="website/js/bootstrap-scrollspy.js"></script>
+  <script type="text/javascript" src="website/js/bootstrap-dropdown.js"></script>
 </body>
 </html>
