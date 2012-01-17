@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>DirecTV Remote API Example</title>
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
+  <script type="text/javascript" src="../test/vendor/jquery-1.7.js"></script>
+  <script type="text/javascript" src="../test/vendor/underscore-1.2.2.js"></script>
+  <script type="text/javascript" src="js/bootstrap-modal.js"></script>
+  <script type="text/javascript" src="../dtv.remote.api.js"></script>
+  <style>
+    body {
+      padding-top: 60px;
+    }
+  </style>
+  <script>
+    // Adjust the bootstrap popover/twipsy to use my span
+    $(document).ready(function() {
+      $('#ip-address-help-popover')
+        .popover({
+            offset: 10
+        })
+        .click(function(e) {
+            e.preventDefault();
+        });
+    });
+  </script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="fill">
+      <div class="container">
+        <a class="brand" href="#">DirecTV Remote</a>
+        <ul class="nav">
+          <li><a href="#about" data-controls-modal="about-dialog" data-keyboard="true">About</a></li>
+          <li><a href="#contact" data-controls-modal="contact-dialog" data-keyboard="true">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="hero-unit">
+      <h2>Web-Based DirecTV Remote Control</h2>
+      <p>
+        Welcome to the example application for the <a href="http://jcscoobyrs.github.com/directv-remote-api/">JavaScript DirecTV Remote API</a>.
+        This application will turn your web browser into a DirecTV <abbr title="set-top-box">STB</abbr> remote control, as if you had the remote in your hand.
+      </p>
+      <p>
+        Click the button below to enter your DirecTV <abbr title="set-top-box">STB</abbr> IP address.
+      </p>
+      <p>
+        <span class="label notice">TODO</span> <span style="font-size: smaller;">Provide some documentation on how to enable network control and how to get the DirecTV <abbr title="set-top-box">STB</abbr> IP address.</span>
+      </p>
+      <p><a class="btn primary" data-controls-modal="ip-address-dialog" data-keyboard="true">Get Started</a></p>
+    </div>
+  </div>
+
+  <!-- Modal Dialogs -->
+  <div id="about-dialog" class="modal hide fade">
+    <div class="modal-header">
+      <a href="#" class="close">x</a>
+      <h3>About</h3>
+    </div>
+    <div class="modal-body">
+      <p>Insert some useful text that will probably end up being a link to <a href="http://jcscoobyrs.github.com/directv-remote-api/">http://jcscoobyrs.github.com/directv-remote-api/</a>.</p>
+    </div>
+  </div>
+  <div id="contact-dialog" class="modal hide fade">
+    <div class="modal-header">
+      <a href="#" class="close">x</a>
+      <h3>Contact</h3>
+    </div>
+    <div class="modal-body">
+      <p>Insert some useful text that will probably end up being a link to <a href="http://jcscoobyrs.github.com/directv-remote-api/">http://jcscoobyrs.github.com/directv-remote-api/</a>.</p>
+    </div>
+  </div>
+  <div id="ip-address-dialog" class="modal hide fade">
+    <div class="modal-header">
+      <a href="#" class="close">x</a>
+      <h3>Let's get started</small></h3>
+    </div>
+    <div class="modal-body">
+      <p>To get started with this example application, please provide your DirecTV <abbr title="set-top-box">STB</abbr> IP address in the form below.</p>
+      <p><em>Help identifying your DirecTV <abbr title="set-top-box">STB</abbr> IP address or enabling network access
+        on your DirecTV <abbr title="set-top-box">STB</abbr> IP address can be found on the <a href="https://github.com/jcscoobyrs/directv-remote-api/wiki">project wiki</a>.</em></p>
+      <form>
+        <fieldset>
+          <div class="well">
+            <label for="ip-address-input"><strong>IP Address:</strong></label>
+            <div class="input">
+              <input class="span5" type="text" id="ip-address-input" name="ip-address-input" size="30"/>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn">Cancel</button>
+      <button class="btn primary">Submit</button>
+    </div>
+  </div>
+</body>
+</html>
