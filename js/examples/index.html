@@ -2,25 +2,17 @@
 <html>
 <head>
   <title>DirecTV Remote API Example</title>
-  <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
-  <script type="text/javascript" src="../test/vendor/jquery-1.7.js"></script>
-  <script type="text/javascript" src="../test/vendor/underscore-1.2.2.js"></script>
-  <script type="text/javascript" src="js/bootstrap-modal.js"></script>
-  <script type="text/javascript" src="../dtv.remote.api.js"></script>
-  <style>
-    body {
-      padding-top: 60px;
-    }
-  </style>
+  <link rel="stylesheet" href="../../website/css/bootstrap.css" type="text/css"/>
+  <link rel="stylesheet" href="../../website/css/bootstrap-responsive.css" type="text/css"/>
 </head>
 <body>
-  <div class="topbar">
-    <div class="fill">
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
       <div class="container">
         <a class="brand" href="#">DirecTV Remote</a>
         <ul class="nav">
-          <li><a href="#about" data-controls-modal="about-dialog" data-keyboard="true">About</a></li>
-          <li><a href="#contact" data-controls-modal="contact-dialog" data-keyboard="true">Contact</a></li>
+          <li><a href="#about-dialog" data-toggle="modal" data-keyboard="true">About</a></li>
+          <li><a href="#contact-dialog" data-toggle="modal" data-keyboard="true">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -38,14 +30,14 @@
       <p>
         <span class="label notice">TODO</span> <span style="font-size: smaller;">Provide some documentation on how to enable network control and how to get the DirecTV <abbr title="set-top-box">STB</abbr> IP address.</span>
       </p>
-      <p><a class="btn primary" data-controls-modal="ip-address-dialog" data-keyboard="true">Get Started</a></p>
+      <p><a href="#ip-address-dialog" class="btn primary" data-toggle="modal" data-keyboard="true">Get Started</a></p>
     </div>
   </div>
 
   <!-- Modal Dialogs -->
   <div id="about-dialog" class="modal hide fade">
     <div class="modal-header">
-      <a href="#" class="close">x</a>
+      <a href="#" class="close" data-dismiss="modal">x</a>
       <h3>About</h3>
     </div>
     <div class="modal-body">
@@ -54,7 +46,7 @@
   </div>
   <div id="contact-dialog" class="modal hide fade">
     <div class="modal-header">
-      <a href="#" class="close">x</a>
+      <a href="#" class="close" data-dismiss="modal">x</a>
       <h3>Contact</h3>
     </div>
     <div class="modal-body">
@@ -63,8 +55,8 @@
   </div>
   <div id="ip-address-dialog" class="modal hide fade">
     <div class="modal-header">
-      <a href="#" class="close">x</a>
-      <h3>Let's get started</small></h3>
+      <a href="#" class="close" data-dismiss="modal">x</a>
+      <h3><small>Let's get started</small></h3>
     </div>
     <div class="modal-body">
       <p>To get started with this example application, please provide your DirecTV <abbr title="set-top-box">STB</abbr> IP address in the form below.</p>
@@ -86,5 +78,11 @@
       <button class="btn primary">Submit</button>
     </div>
   </div>
+
+  <!-- Scripts -->
+  <script type="text/javascript" src="../../website/js/jquery-1.7.1.js"></script>
+  <script type="text/javascript" src="../test/vendor/underscore-1.2.2.js"></script>
+  <script type="text/javascript" src="../../website/js/bootstrap-modal.js"></script>
+  <script type="text/javascript" src="../dtv.remote.api.js"></script>
 </body>
 </html>

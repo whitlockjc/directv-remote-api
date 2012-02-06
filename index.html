@@ -3,11 +3,8 @@
 <head>
   <title>DirecTV Remote API</title>
   <link rel="stylesheet" href="website/css/bootstrap.css" type="text/css"/>
-  <style>
-    body {
-      padding-top: 60px;
-    }
-  </style>
+  <link rel="stylesheet" href="website/css/bootstrap-responsive.css" type="text/css"/>
+  <link rel="stylesheet" href="website/css/bootstrap-custom.css" type="text/css"/>
 
   <!-- Google Analytics -->
   <script type="text/javascript">
@@ -22,22 +19,22 @@
     })();
   </script>
 </head>
-<body>
+<body data-spy="scroll">
   <!-- GitHub 'Fork Me' Badge -->
-  <a href="https://github.com/jcscoobyrs/directv-remote-api">
-    <img style="position: absolute; top: 0; right: 0; border: 0; z-index: 15000;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+  <a href="https://github.com/jcscoobyrs/directv-remote-api" class="navbar-fixed-top">
+    <img src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
   </a>
 
   <!-- Navigation Bar -->
-  <div class="topbar" data-scrollspy="scrollspy" data-dropdown="dropdown">
-    <div class="fill">
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
       <div class="container">
         <a class="brand" href="http://jcscoobyrs.github.com/directv-remote-api/">DirecTV Remote API</a>
         <ul class="nav">
           <li class="active"><a href="#overview">Overview</a></li>
           <li><a href="#about">About</a></li>
           <li class="dropdown">
-            <a href="#javascript" class="dropdown-toggle">JavaScript</a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">JavaScript <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="#javascript-documentation">Documentation</a></li>
               <li><a href="#javascript-downloads">Downloads</a></li>
@@ -54,20 +51,24 @@
   <div class="container">
 
     <!-- Overview -->
-    <div class="hero-unit" id="overview">
-      <h1>DirecTV Remote API</h1>
-      <p>
-        Providing consistent APIs for interacting with your <a href="http://www.directv.com">DirecTV</a> <abbr title="set-top-box">STB</abbr>, because someone had to do it.
-      <p>
-    </div>
+    <section>
+      <a name="overview" id="overview"></name>
+      <div class="hero-unit">
+        <h1>DirecTV Remote API</h1>
+        <p>
+          Providing consistent APIs for interacting with your <a href="http://www.directv.com">DirecTV</a> <abbr title="set-top-box">STB</abbr>, because someone had to do it.
+        <p>
+      </div>
+    </section>
 
     <!-- About -->
-    <section id="about">
+    <section>
+      <a name="about" id="about"></a>
       <div class="page-header">
         <h1>About the Project <small>Reasons behind the project and the project goals</small></h1>
       </div>
       <div class="row">
-        <div class="span8">
+        <div class="span6">
           <h3>History</h3>
           <p>
             I've often found myself wanting to have a smarter remote control.  Sure, I can go buy some multi-device
@@ -88,7 +89,7 @@
             interacting with the DirecTV <abbr title="set-top-box">STB</abbr> programmatically.
           </p>
         </div>
-        <div class="span8">
+        <div class="span6">
           <h3>Goals</h3>
           <p>
             The goals for this project are to design a very simple, yet full-featured, API for using every
@@ -112,22 +113,22 @@
     </section>
 
     <!-- JavaScript-->
-    <section id="javascript">
+    <section>
+      <a name="javascript" id="javascript"></a>
       <div class="page-header">
         <h1>JavaScript</h1>
       </div>
       <div class="row">
-        <a name="javascript"></a>
-        <div class="span-one-third">
+        <div class="span4">
           <h3>Resources</h3>
           <p>
             To the right you will see information on how to download the JavaScript API, documentation on
             how to use the JavaScript API and example applications.
           </p>
         </div>
-        <div class="span-two-thirds">
+        <div class="span8">
+          <a name="javascript-documentation" id="javascript-documentation"></a>
           <h3>Documentation</h3>
-        <a name="javascript-documentation"></a>
           <p>
             Documentation for the JavaScript API right now consists of two items:
           </p>
@@ -143,9 +144,9 @@
             objects.  Pretty soon we'll have a API documentation but until then, the annotated source and
             test suite should show you how to use the API properly.
           </p>
+          <a name="javascript-downloads" id="javascript-downloads"></a>
           <h3>Downloads <small>(Right-click and use "Save as")</h3>
-        <a name="javascript-downloads"></a>
-          <table class="bordered-table zebra-striped">
+          <table class="table table-striped">
             <thead>
               <tr>
                 <th>File name</th>
@@ -176,8 +177,8 @@
             <li><a href="http://jquery.com/">jQuery</a> 1.7 or greater</li>
             <li><a href="http://documentcloud.github.com/underscore/">Underscore.js</a> 1.2.2 or greater</li>
           </ul>
+          <a name="javascript-examples" id="javascript-examples"></a>
           <h3>Examples</h3>
-          <a name="javascript-examples"></a>
           <p>
             The <a href="js/examples">example application</a> is a work in progress that will allow you to
             connect to a DirecTV <abbr title="set-top-box">STB</abbr> on your local network and interact with
@@ -191,19 +192,20 @@
 
     <!-- Resources -->
     <section id="resources">
+      <a name="resources" id="resources"></a>
       <div class="page-header">
         <h1>Resources <small>Useful reading</small></h1>
       </div>
       <div class="row">
-        <div class="span16">
+        <div class="span12">
           <p>
             Below you will find links, with explanation, to some very useful resources that either helped in
             the creation of these APIs, are using these APIs or are tools/libraries/apis being used by this
             project:
           </p>
-          <h3>Tools Used</h3>
           <div class="row">
-            <div class="offset1">
+            <div class="span6">
+              <h3>Tools Used</h3>
               <dl>
                 <dt><a href="http://twitter.github.com/bootstrap/">Bootstrap</a></dt>
                 <dd>Bootstrap is a "toolkit from Twitter designed to kickstart development of webapps and sites" and is used for the UI of this site and the <a href="#javascript">JavaScript API</a> example application.</dd>
@@ -217,10 +219,8 @@
                 <dd>Underscore is "a utility-belt library for JavaScript" used by the <a href="#javascript">JavaScript API</a>.</dd>
               </dl>
             </div>
-          </div>
-          <h3>Reading Materials</h3>
-          <div class="row">
-            <div class="offset1">
+            <div class="span6">
+              <h3>Reading Materials</h3>
               <dl>
                 <dt><a href="http://www.sbcatest.com/TechUpdates/DTV-MD-0359-DIRECTV%20SHEF%20Public%20Beta%20Command%20Set-V1.0.pdf">DirecTV SHEF Command Set Public Beta</a></dt>
                 <dd>This PDF documents the available HTTP-based API for interacting with your DirecTV <abbr title="set-top-box">STB</abbr>.</dd>
@@ -240,7 +240,7 @@
   </div>
 
   <!-- Scripts -->
-  <script type="text/javascript" src="website/js/jquery-1.7.js"></script>
+  <script type="text/javascript" src="website/js/jquery-1.7.1.js"></script>
   <script type="text/javascript" src="website/js/bootstrap-scrollspy.js"></script>
   <script type="text/javascript" src="website/js/bootstrap-dropdown.js"></script>
 </body>
