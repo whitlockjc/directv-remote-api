@@ -1,6 +1,6 @@
 # DirecTV Remote API
 
-This project takes advantage of [GitHub Pages](http://pages.github.com/) and its documentation can be found here: [http://jcscoobyrs.github.com/directv-remote-api/](http://jcscoobyrs.github.com/directv-remote-api/)
+This project takes advantage of [GitHub Pages](http://pages.github.com/) and its documentation can be found here: [http://whitlockjc.github.com/directv-remote-api/](http://whitlockjc.github.com/directv-remote-api/)
 
 ## Tested Hardware
 
